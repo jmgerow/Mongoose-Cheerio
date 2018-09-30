@@ -3,8 +3,8 @@ var mongoose = require("mongoose");
 // Save a reference to the Schema constructor
 var Schema = mongoose.Schema;
 
-//model for Mongo to store article data
-var ArticleSchema = new Schema({
+//model for saving articles and adding notes
+var SavedSchema = new Schema({
   
   title: {
     type: String,
@@ -26,10 +26,12 @@ var ArticleSchema = new Schema({
     required: true
   },
   
+  note: {
+    type: Schema.Types.ObjectId,
+    ref: "Note"
+  }
 });
 
-//creates model with defined schema
-var Article = mongoose.model("Article", ArticleSchema);
+var Saved = mongoose.model("Saved", SavedSchema);
 
-
-module.exports = Article;
+module.exports = Saved;
