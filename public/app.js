@@ -33,6 +33,12 @@ $(document).ready(function () {
 
   });
 
+  //click button to view saved articles
+  $(document).on("click", "#view-saved-button", function () {
+    window.location.href = "/saved"
+
+  });
+
 
   // TO DO - adjust onclick for articles to save and add notes
   $(document).on("click", "p", function () {
