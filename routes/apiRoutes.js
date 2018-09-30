@@ -52,6 +52,19 @@ app.get("/scrape", function(req, res) {
         res.json(err);
       });
   });
+
+  app.delete("/articles", function(req, res) {
+    // Grab every document in the Articles collection
+    db.Article.remove({})
+      .then(function(dbArticle) {
+        // If we were able to successfully find Articles, send them back to the client
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+  });
   
   // Route for grabbing a specific Article by ID
   app.get("/articles/:id", function(req, res) {
