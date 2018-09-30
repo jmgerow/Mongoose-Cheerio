@@ -8,7 +8,7 @@ $(document).ready(function () {
       // Loop through the articles
       for (var i = 0; i < data.length; i++) {
         // Display to article ID
-        $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+        $("#articles").append("<p data-id='" + data[i]._id + "'><b>" + data[i].title + "</b><br /><a href=" + data[i].link + ">View Article</a></p>");
       }
     });
   };
