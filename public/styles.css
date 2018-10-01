@@ -1,0 +1,12 @@
+body{
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.parallax-container {
+    height: 300px;
+    margin-bottom: 30px;
+}
+
+.header {
+    font-size: 80px;
+}

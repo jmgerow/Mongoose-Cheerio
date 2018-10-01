@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+  $(".parallax").parallax();
   getArticles();
 
   // Grabbing the articles as a json
@@ -13,13 +13,13 @@ $(document).ready(function () {
 
   //click button to clear articles
   $(document).on("click", "#clear-button", function () {
-      $.ajax({
-        method: "DELETE",
-        url: "/articles"
-      })
-        .then(getArticles);
-      location.reload()
-    
+    $.ajax({
+      method: "DELETE",
+      url: "/articles"
+    })
+      .then(getArticles);
+    location.reload()
+
   });
 
   //click button to scrape new articles
