@@ -5,9 +5,7 @@ $(document).ready(function () {
   // Grabbing the articles as a json
   function getArticles() {
     $.getJSON("/articles", function (data) {
-      // Loop through the articles
       for (var i = 0; i < data.length; i++) {
-        // Display to article ID
         $("#articles").append("<p data-id='" + data[i]._id + "'><b>" + data[i].title + "</b><br />" + data[i].summary + "<br />" + data[i].byline + "<br /><a href=" + data[i].link + ">View Article </a>" + "|" + "<a class=" + "save-article" + "> Save Article</a></p>");
       }
     });
@@ -15,12 +13,13 @@ $(document).ready(function () {
 
   //click button to clear articles
   $(document).on("click", "#clear-button", function () {
-    $.ajax({
-      method: "DELETE",
-      url: "/articles"
-    })
-      .then(getArticles);
-    location.reload()
+      $.ajax({
+        method: "DELETE",
+        url: "/articles"
+      })
+        .then(getArticles);
+      location.reload()
+    
   });
 
   //click button to scrape new articles
@@ -39,9 +38,20 @@ $(document).ready(function () {
 
   });
 
+
+  //function to save article
   $(document).on("click", ".save-article", function () {
     console.log("save article click is working")
-    
+    var thisId = $(this).parents().data()
+    console.log('thisId', thisId)
+
+    $.ajax({
+      method: "POST",
+      url: "/articles/save/" + thisId.id,
+      // data: {thisId}
+    })
+
+    console.log('thisId.id', thisId.id)
   });
 
 
@@ -81,7 +91,6 @@ $(document).ready(function () {
 
   // saving notes
   $(document).on("click", "#savenote", function () {
-    // Grab the id associated with the article from the submit button
     var thisId = $(this).attr("data-id");
 
     // Run a POST request to change the note, using what's entered in the inputs
