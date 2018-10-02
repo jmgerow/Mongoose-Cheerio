@@ -43,7 +43,7 @@ module.exports = function (app) {
 
   // Route for getting all Articles from the db
   app.get("/articles", function (req, res) {
-    db.Article.find({})
+    db.Article.find({ "saved": false })
       .then(function (dbArticle) {
         res.json(dbArticle);
       })
@@ -54,7 +54,7 @@ module.exports = function (app) {
 
   // Route to clear all articles at /. Currently clearing saved articles as well... need to fix  
   app.delete("/articles", function (req, res) {
-    db.Article.remove({})
+    db.Article.deleteMany({ saved: "false" })
       .then(function (dbArticle) {
         res.json(dbArticle);
       })
@@ -79,6 +79,19 @@ module.exports = function (app) {
   //route to save an article
   app.post("/articles/save/:id", function (req, res) {
     db.Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true })
+      .exec(function (err, doc) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          res.send(doc);
+        }
+      });
+      
+  });
+
+  app.post("/articles/delete/:id", function (req, res) {
+    db.Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": false })
       .exec(function (err, doc) {
         if (err) {
           console.log(err);

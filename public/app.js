@@ -11,6 +11,17 @@ $(document).ready(function () {
     });
   };
 
+  //function for getting only saved articles
+  function getSavedArticles() {
+    $.getJSON("/saved", function (data) {
+      for (var i = 0; i < data.length; i++) {
+        $("#articles").append("<p data-id='" + data[i]._id + "'><b>" + data[i].title + "</b><br />" + data[i].summary + "<br />" + data[i].byline + "<br /><a href=" + data[i].link + ">View Article </a>" + "|" + "<a class=" + "delete-article" + "> Delete Article</a></p>");
+      }
+    });
+  };
+
+
+
   //click button to clear articles
   $(document).on("click", "#clear-button", function () {
     $.ajax({
@@ -34,23 +45,41 @@ $(document).ready(function () {
 
   //click button to view saved articles
   $(document).on("click", "#view-saved-button", function () {
-    window.location.href = "/saved"
+    // window.location.href = "/saved"
+    $("#articles").empty();
+    $.ajax({
+      method: "GET",
+      url: "/saved/"
+    })
+      .then(getSavedArticles);
 
   });
 
 
   //function to save article
   $(document).on("click", ".save-article", function () {
-    console.log("save article click is working")
+    var thisId = $(this).parents().data()
+    $("#articles").empty();
+    $.ajax({
+      method: "POST",
+      url: "/articles/save/" + thisId.id,
+    })
+      .then(getArticles);
+    console.log('thisId.id', thisId.id)
+  });
+
+
+  $(document).on("click", ".delete-article", function () {
+
+    $("#articles").empty();
     var thisId = $(this).parents().data()
     console.log('thisId', thisId)
 
     $.ajax({
       method: "POST",
-      url: "/articles/save/" + thisId.id,
-      // data: {thisId}
+      url: "/articles/delete/" + thisId.id,
     })
-
+      .then(getSavedArticles);
     console.log('thisId.id', thisId.id)
   });
 
