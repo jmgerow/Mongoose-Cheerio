@@ -27,6 +27,7 @@ module.exports = function (app) {
           .attr("href");
 
         db.Article.create(result)
+        // db.Article.create(result, {unique: true})
           .then(function (dbArticle) {
 
             console.log(dbArticle);
@@ -76,7 +77,7 @@ module.exports = function (app) {
   });
 
 
-  //route to save an article
+  // route to save an article
   app.post("/articles/save/:id", function (req, res) {
     db.Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true })
       .exec(function (err, doc) {
@@ -90,6 +91,7 @@ module.exports = function (app) {
       
   });
 
+  // route for deleting article  
   app.post("/articles/delete/:id", function (req, res) {
     db.Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": false })
       .exec(function (err, doc) {
