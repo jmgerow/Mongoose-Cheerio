@@ -21,6 +21,7 @@ $(document).ready(function () {
     });
   };
 
+  //function to clear articles  
   function clearArticles() {
     $.ajax({
       method: "DELETE",
@@ -30,6 +31,7 @@ $(document).ready(function () {
     location.reload()
   }
 
+  //function to scrape articles
   function scrapeArticles() {
     $.ajax({
       method: "GET",
@@ -46,8 +48,8 @@ $(document).ready(function () {
   //click button to scrape new articles
   $(document).on("click", "#scrape-button", function () {
     // clearArticles();
-    clearArticles()
     scrapeArticles();
+    // location.reload();
   });
 
   //click button to view saved articles
@@ -94,44 +96,9 @@ $(document).ready(function () {
   // function to view/add comments
   $(document).on("click", ".view-comments", function () {
     console.log("click is working")
-    $("#comments-modal").modal();
+    
   });
 
-
-
-  // TO DO - adjust onclick for articles to save and add notes
-  // $(document).on("click", "#save-article", function () {
-  //   // Empty the notes from the note section
-  //   $("#notes").empty();
-  //   // Save the id from the p tag
-  //   var thisId = $(this).attr("data-id");
-
-  //   // Now make an ajax call for the Article
-  //   $.ajax({
-  //     method: "GET",
-  //     url: "/articles/" + thisId
-  //   })
-
-  //     .then(function (data) {
-  //       console.log(data);
-  //       // article title
-  //       $("#notes").append("<h2>" + data.title + "</h2>");
-  //       // enter a new title
-  //       $("#notes").append("<input id='titleinput' name='title' >");
-  //       // new note
-  //       $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-  //       // submit button
-  //       $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
-
-  //       // If there is already a note present
-  //       if (data.note) {
-  //         // Place the title of the note in the title input
-  //         $("#titleinput").val(data.note.title);
-  //         // Place the body of the note in the body textarea
-  //         $("#bodyinput").val(data.note.body);
-  //       }
-  //     });
-  // });
 
   // saving notes
   $(document).on("click", "#savenote", function () {

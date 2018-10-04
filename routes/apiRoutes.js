@@ -134,4 +134,18 @@ module.exports = function (app) {
       });
   });
 
+
+  app.post("/notes/save/:id", function (req, res) {
+    db.Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true })
+      .exec(function (err, doc) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          res.send(doc);
+        }
+      });
+      
+  });
+
 };

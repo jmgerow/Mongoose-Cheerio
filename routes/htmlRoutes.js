@@ -8,12 +8,4 @@ module.exports = function (app) {
 
   });
 
-  // load saved articles page  
-  app.get("/saved", function (req, res) {
-
-    res.render("saved");
-
-  });
-
-
 };
