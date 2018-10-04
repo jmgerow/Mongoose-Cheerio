@@ -1,5 +1,6 @@
 $(document).ready(function () {
   $(".parallax").parallax();
+  $('.modal').modal();
   getArticles();
 
   // Grabbing the articles as a json
@@ -15,7 +16,7 @@ $(document).ready(function () {
   function getSavedArticles() {
     $.getJSON("/saved", function (data) {
       for (var i = 0; i < data.length; i++) {
-        $("#articles").append("<p data-id='" + data[i]._id + "'><b>" + data[i].title + "</b><br />" + data[i].summary + "<br />" + data[i].byline + "<br /><a href=" + data[i].link + ">View Article </a>" + "|" + "<a class=" + "delete-article" + "> Delete Article</a></p>");
+        $("#articles").append("<p data-id='" + data[i]._id + "'><b>" + data[i].title + "</b><br />" + data[i].summary + "<br />" + data[i].byline + "<br /><a href=" + data[i].link + ">View Article </a>" + "|" + "<a class=" + "delete-article" + "> Delete Article </a>" + "|" + "<a class=" + "view-comments" + "> View Comments</a></p>");
       }
     });
   };
@@ -39,13 +40,7 @@ $(document).ready(function () {
 
   //click button to clear articles
   $(document).on("click", "#clear-button", function () {
-    $.ajax({
-      method: "DELETE",
-      url: "/articles"
-    })
-      .then(getArticles);
-    location.reload()
-
+    clearArticles();
   });
 
   //click button to scrape new articles
@@ -53,14 +48,6 @@ $(document).ready(function () {
     // clearArticles();
     clearArticles()
     scrapeArticles();
-  
-   
-    // $.ajax({
-    //   method: "GET",
-    //   url: "/scrape/"
-    // })
-    //   .then(getArticles);
-
   });
 
   //click button to view saved articles
@@ -102,6 +89,14 @@ $(document).ready(function () {
       .then(getSavedArticles);
     console.log('thisId.id', thisId.id)
   });
+
+
+  // function to view/add comments
+  $(document).on("click", ".view-comments", function () {
+    console.log("click is working")
+    $("#comments-modal").modal();
+  });
+
 
 
   // TO DO - adjust onclick for articles to save and add notes
