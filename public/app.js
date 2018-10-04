@@ -20,7 +20,22 @@ $(document).ready(function () {
     });
   };
 
+  function clearArticles() {
+    $.ajax({
+      method: "DELETE",
+      url: "/articles"
+    })
+      .then(getArticles);
+    location.reload()
+  }
 
+  function scrapeArticles() {
+    $.ajax({
+      method: "GET",
+      url: "/scrape/"
+    })
+      .then(getArticles);
+  }
 
   //click button to clear articles
   $(document).on("click", "#clear-button", function () {
@@ -35,11 +50,16 @@ $(document).ready(function () {
 
   //click button to scrape new articles
   $(document).on("click", "#scrape-button", function () {
-    $.ajax({
-      method: "GET",
-      url: "/scrape/"
-    })
-      .then(getArticles);
+    // clearArticles();
+    clearArticles()
+    scrapeArticles();
+  
+   
+    // $.ajax({
+    //   method: "GET",
+    //   url: "/scrape/"
+    // })
+    //   .then(getArticles);
 
   });
 

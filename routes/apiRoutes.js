@@ -27,7 +27,7 @@ module.exports = function (app) {
           .attr("href");
 
         db.Article.create(result)
-        // db.Article.create(result, {unique: true})
+        // db.Article.create(result, {unique: true, dropDups: true})
           .then(function (dbArticle) {
 
             console.log(dbArticle);
