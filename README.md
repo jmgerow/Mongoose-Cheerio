@@ -9,7 +9,7 @@
 * Clear the articles to start over
 
 ![Main](public/images/scraper-main.PNG?raw=true "Title")
-![Saved](public/images/scraper-main.PNG?raw=true "Title")
+![Saved](public/images/scraper-saved.PNG?raw=true "Title")
 
 
 
